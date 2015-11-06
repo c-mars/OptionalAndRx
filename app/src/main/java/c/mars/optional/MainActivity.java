@@ -21,6 +21,17 @@ public class MainActivity extends AppCompatActivity {
         Timber.plant(new Timber.DebugTree());
 
         List<String> l= Arrays.asList("ford", "mitsu", "honda", "jeep");
+        simple(l);
+        Timber.d("done");
+    }
+
+    private void simple(List<String> l){
+        Observable.from(l)
+                .filter(v -> v.equals("lada"))
+                .forEach(s -> Timber.d(String.valueOf(s)));
+    }
+
+    private void boilerplate(List<String> l){
         try {
             Optional<String> f = Optional.fromNullable((String)Observable.create(subscriber -> subscriber.onNext(Iterables.find(l, v -> v.equals("a"))))
                     .onErrorReturn(throwable -> null).toBlocking().first());
@@ -33,6 +44,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Timber.e(e.getMessage());
         }
-        Timber.d("done");
     }
 }
