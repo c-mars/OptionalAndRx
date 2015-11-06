@@ -20,14 +20,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Timber.plant(new Timber.DebugTree());
 
-        List<String> l= Arrays.asList("ford", "mitsu", "honda", "jeep");
+        List<String> l= Arrays.asList("ford", "mitsu", "honda", "jeep", "ford");
         simple(l);
         Timber.d("done");
     }
 
     private void simple(List<String> l){
         Observable.from(l)
-                .filter(v -> v.equals("lada"))
+                .filter(v -> v.equals("ford"))
+                .first()
                 .forEach(s -> Timber.d(String.valueOf(s)));
     }
 
