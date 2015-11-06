@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             Optional<String> f = Optional.fromNullable((String)Observable.create(subscriber -> subscriber.onNext(Iterables.find(l, v -> v.equals("a"))))
                     .onErrorReturn(throwable -> null).toBlocking().first());
+            if(!f.isPresent()) {
+                Timber.e("not present");
+            } else {
+                Timber.d(f.get());
+            }
             Timber.d(f.or("empty"));
         } catch (Exception e) {
             Timber.e(e.getMessage());
